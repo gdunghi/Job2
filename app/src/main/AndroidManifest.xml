@@ -3,6 +3,9 @@
           package="com.example.job2">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
             android:allowBackup="true"
@@ -11,6 +14,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <receiver
+                android:name=".MyReceiverSMS"
+                android:enabled="true"
+                android:exported="true">
+        </receiver>
+
         <service
                 android:name=".TimeService"
                 android:enabled="true"
@@ -37,6 +46,15 @@
                 android:name=".MyBackgroundService"
                 android:enabled="true"
                 android:exported="true"/>
+
+        <receiver
+                android:name=".SmsBroadcastReceiver"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
